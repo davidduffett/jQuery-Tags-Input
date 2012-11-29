@@ -135,7 +135,8 @@
 			return false;
 		};
 		
-	$.fn.removeTag = function(value) { 
+	$.fn.removeTag = function(value,options) { 
+			options = jQuery.extend({callback:true},options);
 			value = unescape(value);
 			this.each(function() { 
 				var id = $(this).attr('id');
@@ -152,7 +153,7 @@
 				
 				$.fn.tagsInput.importTags(this,str);
 
-				if (tags_callbacks[id] && tags_callbacks[id]['onRemoveTag']) {
+				if (options.callback && tags_callbacks[id] && tags_callbacks[id]['onRemoveTag']) {
 					var f = tags_callbacks[id]['onRemoveTag'];
 					f.call(this, value);
 				}
